@@ -1,0 +1,42 @@
+Function ShortenAccName(str As String) As String
+    Dim parts As Variant
+    Dim result As String
+    
+    parts = Split(str, ":")
+    
+    If UBound(parts) <= 0 Then
+        ShortenAccName = str
+    Else
+        result = parts(0) & ":" & parts(UBound(parts))
+        ShortenAccName = result
+    End If
+End Function
+
+Sub ShortenAccNamesInColumn(colLetter As String)
+    Dim cell As Range
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim rng As Range
+    Dim colNumber As Integer
+    
+    ' Convert column letter to column number
+    colNumber = Range(colLetter & "1").Column
+    
+    Set ws = ThisWorkbook.Sheets(1) ' Change to your sheet number or name if necessary
+    lastRow = ws.Cells(ws.Rows.Count, colNumber).End(xlUp).Row
+    Set rng = ws.Range(colLetter & "1:" & colLetter & lastRow)
+    
+    For Each cell In rng
+        If Not IsEmpty(cell.Value) Then
+            cell.Value = ShortenAccName(cell.Value)
+        End If
+    Next cell
+End Sub
+
+Sub RunShortenAccNamesInColumn()
+    Dim colLetter As String
+    colLetter = InputBox("Enter the column letter (e.g., A, B, C, ...):")
+    If colLetter <> "" Then
+        ShortenAccNamesInColumn colLetter
+    End If
+End Sub
