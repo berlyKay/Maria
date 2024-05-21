@@ -2,3 +2,4 @@ I started this repo on 05/15/2004. Maria sent me an excel wrkbk with a list of a
 
 The js file is called shorten_acct_names.js
 
+05/16/24 Sent Maria VBA code that would ask for column input. (Afterwards, she said she wouldn't need the input column. I can change it later if needed.)
